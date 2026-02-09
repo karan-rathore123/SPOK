@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SPOK | Share the wheel, let nature heal.</title>
     <link rel="stylesheet" href="spok.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <header>
       <nav class="container">
-        <div class="logo">SPOK</div>
+        <div class="logo">SPOK<span style="color:var(--accent-yellow)">.</span></div>
         <ul class="nav-links">
           <li><a href="#how-it-works">How it Works</a></li>
-          <li><a href="#rent">Rent a Cycle</a></li>
-          <li><button class="btn-primary">Login</button></li>
+          <li><a href="#browse-section">Browse Cycles</a></li>
+          <li id="auth-container">
+            <button class="btn-primary" onclick="openModal('loginModal')">Login</button>
+          </li>
         </ul>
       </nav>
     </header>
@@ -25,15 +24,14 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1>SPOK</h1>
+          <img src="spok logo small.png" alt="SPOK Logo" class="hero-logo">
           <p class="subtitle">—Share the wheel, let nature heal.</p>
           <div class="hero-btns">
-            <a href="#rent" class="btn-main">Find Your Ride</a>
-            <a href="#register" class="btn-outline">Rent Your Cycle & Earn</a>
+            <a href="#browse-section" class="btn-main">Find Your Ride</a>
+            <button onclick="openModal('registerBikeModal')" class="btn-outline">Rent Your Cycle & Earn</button>
           </div>
         </div>
       </div>
-      <div class="skyline"></div>
     </section>
 
     <section id="how-it-works" class="split-section">
@@ -42,18 +40,11 @@
           <h2>RENT YOUR CYCLE & EARN!</h2>
           <ul class="steps">
             <li><span class="step-num">1</span> Register Online</li>
-            <li><span class="step-num">2</span> Leave at our store</li>
+            <li><span class="step-num">2</span> Drop at Store</li>
             <li><span class="step-num">3</span> Get Paid!</li>
           </ul>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2482/2482862.png"
-            alt="Earn"
-            class="icon-large"
-          />
         </div>
-
         <div class="divider"></div>
-
         <div class="split-box renter">
           <h2>FIND YOUR RIDE & EXPLORE!</h2>
           <ul class="steps">
@@ -61,22 +52,299 @@
             <li><span class="step-num">2</span> Pay with QR</li>
             <li><span class="step-num">3</span> Pick up & go!</li>
           </ul>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2962/2962303.png"
-            alt="Ride"
-            class="icon-large"
-          />
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="container">
-        <p><strong>COLLEGE CONVENIENCE. SUSTAINABLE TRAVEL.</strong></p>
-        <p>Visit us: THE HUB – Student Center Ground Floor</p>
+    <section id="browse-section" class="container section-padding">
+        <h2 class="section-title">Our Bikes</h2>
+        <div class="tiers-grid">
+            <div class="tier-card">
+                <div class="card-badge">Popular</div>
+                <h3>Tier 1</h3>
+                <p class="tier-desc">Standard</p>
+                <p class="tier-desc">Drum Brakes without Gear</p>
+                <div class="price">₹ 12 / hr</div>
+                <div class="card-actions">
+                <button class="btn-primary" onclick="initiatePayment('Tier 1')">Select Ride</button>
+                <button class="btn-view" onclick="viewCycle('tier1')">View</button>
+              </div>
+            </div>
+            <div class="tier-card highlight">
+                <div class="card-badge" style="background:var(--accent-yellow); color:var(--dark-green)">Best Value</div>
+                <h3>Tier 2</h3>
+                <p class="tier-desc">Mountain / Sports</p>
+                <p class="tier-desc">Good condition with Disc brakes</p>
+                <div class="price">₹ 18 / hr</div>
+                <div class="card-actions">
+                <button class="btn-primary" onclick="initiatePayment('Tier 2')">Select Ride</button>
+                <button class="btn-view" onclick="viewCycle('tier2')">View</button>
+                </div>
+            </div>
+            <div class="tier-card">
+                <div class="card-badge">Premium</div>
+                <h3>Tier 3</h3>
+                <p class="tier-desc">Electric Assist</p>
+                <p class="tier-desc">Multi Geared with Double seater</p>
+                <div class="price">₹ 25 / hr</div>
+                <div class="card-actions">
+                <button class="btn-primary" onclick="initiatePayment('Tier 3')">Select Ride</button>
+                <button class="btn-view" onclick="viewCycle('tier3')">View</button>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+  <div id="imagePreviewModal" class="modal">
+    <div class="modal-content image-modal-content">
+        <span class="close" onclick="closeModal('imagePreviewModal')">&times;</span>
+        <img id="previewImg" src="" alt="Cycle Preview" class="full-cycle-img">
+        <h3 id="previewTitle" style="margin-top: 15px; color: var(--dark-green);"></h3>
+    </div>
+</div>
+
+    <footer class="main-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <div class="logo">SPOK<span style="color:var(--accent-yellow)">.</span></div>
+      <p class="footer-tagline">Club Meet? Spok pe jaao.</p>
+      <p class="footer-tagline">Adventure? Spok pe jaao.</p>
+      <p class="footer-tagline">The Intra-college bike rental solution to all your rush.</p>
+      <div class="store-info">
+        <p><strong>Main Hub:</strong></p>
+        <p id="footer-address-display">BIT Mesra Rd, behind Hostel No-6, Ranchi, Mesra, Jharkhand 835215</p>
+        <p class="status-badge">Open: 8 AM - 10 PM</p>
       </div>
-    </footer>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul class="footer-links">
+        <li><a href="#!">Privacy Policy</a></li>
+        <li><a href="#!">Terms & Conditions</a></li>
+        <li><a href="#!">Refund / Cancellation</a></li>
+        <li><a href="#!">Cookie Policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support & Contact</h4>
+      <ul class="footer-links">
+        <li><a href="#!">Contact Us</a></li>
+        <li><a href="#!">Help / FAQ</a></li>
+        <li><li class="contact-item">
+          <small>Email us at:</small>
+          <a href="mailto: karanharshsingh492@gmail.com" class="email-link">spok_bikes321@gmail.com</a>
+        </li></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; 2026 SPOK Mobility. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Welcome Back</h2>
+            <p class="modal-subtitle">Use <strong>admin/admin</strong> to test.</p>
+            <input type="text" id="username" placeholder="Username" class="modal-input">
+            <input type="password" id="password" placeholder="Password" class="modal-input">
+            <button class="btn-primary w-100" onclick="handleLogin()">Login</button>
+        </div>
+    </div>
+
+    <div id="registerBikeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerBikeModal')">&times;</span>
+            <h2>List Your Cycle</h2>
+            <p class="modal-subtitle">Earn money while you study.</p>
+            <select id="bikeType" class="modal-input">
+                <option value="">Select Bike Type</option>
+                <option value="Standard">Standard</option>
+                <option value="Mountain">Mountain</option>
+                <option value="Electric">Electric</option>
+            </select>
+            <input type="text" placeholder="Condition (e.g. New, Good)" id="bikeCond" class="modal-input">
+            <input type="number" placeholder="Hourly Rate ($)" id="bikeRate" class="modal-input">
+            <button class="btn-primary w-100" onclick="submitBike()">Submit Registration</button>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content text-center">
+            <span class="close" onclick="closeModal('paymentModal')">&times;</span>
+            <h2 id="paymentTierName">Payment</h2>
+            <p>Scan to complete secure payment</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SPOK_PAYMENT_VERIFIED" alt="QR Code" class="qr-img">
+            <button class="btn-primary w-100" onclick="confirmPayment()">Confirm Payment</button>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const STORE_ADDRESS = "BIT Mesra Rd, behind Hostel No-6, Ranchi, Mesra, Jharkhand 835215";
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthStatus();
+            document.getElementById('footer-address').textContent = STORE_ADDRESS;
+        });
+
+        // --- 2. AUTHENTICATION LOGIC ---
+        function checkAuthStatus() {
+            const isLoggedIn = localStorage.getItem('spok_isLoggedIn') === 'true';
+            const user = localStorage.getItem('spok_username') || 'User';
+            const authContainer = document.getElementById('auth-container');
+
+            if(isLoggedIn) {
+                authContainer.innerHTML = `
+                    <div class="user-pill">
+                        <span>Hi, ${user}</span>
+                        <button onclick="logout()" class="btn-logout">Logout</button>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <button class="btn-primary" onclick="openModal('loginModal')">Login</button>
+                `;
+            }
+        }
+
+        function handleLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            if(u === 'admin' && p === 'admin') {
+                localStorage.setItem('spok_isLoggedIn', 'true');
+                localStorage.setItem('spok_username', 'Admin');
+                
+                closeModal('loginModal');
+                checkAuthStatus();
+                showToast(`Welcome back, Admin!`, 'success');
+                
+                // Clear inputs
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            } else {
+                showToast("Invalid credentials! Try admin/admin", 'error');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('spok_isLoggedIn');
+            localStorage.removeItem('spok_username');
+            checkAuthStatus();
+            showToast("Logged out successfully", 'neutral');
+        }
+
+        // --- 3. PROVIDER FLOW (RENT YOUR CYCLE) ---
+        function submitBike() {
+            const type = document.getElementById('bikeType').value;
+            const cond = document.getElementById('bikeCond').value;
+            const rate = document.getElementById('bikeRate').value;
+
+            if(!type || !cond || !rate) {
+                showToast("Please fill in all fields.", "error");
+                return;
+            }
+
+            closeModal('registerBikeModal');
+            // Clear inputs
+            document.getElementById('bikeType').value = "";
+            document.getElementById('bikeCond').value = "";
+            document.getElementById('bikeRate').value = "";
+
+            // Success Message
+            showToast(`Registration Successful! Drop off at: ${STORE_ADDRESS}`, "success", 5000);
+        }
+
+        // --- 4. RENTER FLOW (BROWSE & PAY) ---
+        function initiatePayment(tierName) {
+            document.getElementById('paymentTierName').innerText = tierName;
+            openModal('paymentModal');
+        }
+
+        function confirmPayment() {
+            closeModal('paymentModal');
+            showToast(`Payment Confirmed! Pick up at: ${STORE_ADDRESS}`, "success", 6000);
+        }
+
+        // Change these paths to match your local file names
+const localImages = {
+    'tier1': {
+        title: 'Standard Commuter Bike',
+        path: 'teir 1.png' // Update to your filename
+    },
+    'tier2': {
+        title: 'High-Performance Mountain Bike',
+        path: 'teir 2 cycle.png' // Update to your filename
+    },
+    'tier3': {
+        title: 'Premium Electric Cycle',
+        path: 'teir 3 cycle.png' // Update to your filename
+    }
+};
+
+function viewCycle(tierKey) {
+    const cycle = localImages[tierKey];
+    const imgElement = document.getElementById('previewImg');
+    const titleElement = document.getElementById('previewTitle');
+
+    imgElement.src = cycle.path;
+    titleElement.innerText = cycle.title;
+
+    openModal('imagePreviewModal');
+}
+
+        // --- 5. UI UTILITIES (MODALS & TOASTS) ---
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.style.display = "flex";
+            // Small delay to allow CSS transition if opacity were used, 
+            // but here we use display flex. 
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        // Close modal on outside click
+        window.onclick = (event) => {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        /* Custom Toast Function 
+           Replaces standard alert() for a premium feel
+        */
+        function showToast(message, type = 'neutral', duration = 4000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerText = message;
+            
+            container.appendChild(toast);
+
+            // Trigger reflow to enable transition
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.addEventListener('transitionend', () => {
+                    toast.remove();
+                });
+            }, duration);
+        }
+    </script>
   </body>
 </html>
-
-
